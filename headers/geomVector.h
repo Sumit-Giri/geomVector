@@ -1,77 +1,72 @@
 #pragma once
-#include "point3D.h"
-#include "plane.h"
+#include "Vector3D.h"
+#include "Plane.h"
+#include "Matrix.h"
 
-class geomVector
+class GeomVector
 {
 public:
-    geomVector ();
-    geomVector(point3D v1, point3D v2,point3D v3 , point3D v4);
-    ~geomVector();
+    GeomVector ();
+    GeomVector(Vector3D v1, Vector3D v2);
+    ~GeomVector();
 
-    void print(point3D a);
+    void print(Vector3D a);
 
-    void sVectoV1(point3D v1);
+    void sVectoV1(Vector3D v1);
 
-    void sVectoV2(point3D v2);
+    void sVectoV2(Vector3D v2);
 
-    void sVectoV3(point3D v3);
+    void sVectoV3(Vector3D v3);
 
-    void sVectoV4(point3D v4);
+    void sVectoV4(Vector3D v4);
 
-    point3D vector1();
-    point3D vector2();
-    point3D vector3();
-    point3D vector4();
+    Vector3D vector1() const;
     
-    void vectorsFormed(point3D v1, point3D v2,point3D v3 , point3D v4);
+    
 
-    double dotProduct(point3D v1, point3D v2,point3D v3 , point3D v4);
+    double dotProduct(Vector3D v1, Vector3D v2);
 
-    point3D crossProduct(point3D v1, point3D v2,point3D v3 , point3D v4);
+    Vector3D crossProduct(Vector3D v1, Vector3D v2);
 
-    point3D vectorAddition(point3D v1, point3D v2,point3D v3 , point3D v4);
+    Vector3D vectorAddition(Vector3D v1, Vector3D v2);
 
-    double vectorMagnitude(point3D v1, point3D v2);
+    double vectorMagnitude(Vector3D v1);
 
-    point3D vectorNormalized(point3D v1, point3D v2);
+    Vector3D vectorNormalized(Vector3D v1);
 
-    bool isEqual(point3D v1, point3D v2,point3D v3 , point3D v4);
+    bool isEqual(Vector3D v1, Vector3D v2);
 
-    point3D addScalar(point3D v1 , point3D v2 , double scalar);
+    Vector3D addScalar(Vector3D v1 , double scalar);
 
-    point3D vectorScalarMultiplication(point3D v1, point3D v2 , double scalar);
+    Vector3D vectorScalarMultiplication(Vector3D v1, double scalar);
 
-    double angleBetweenVectors(point3D v1, point3D v2,point3D v3 , point3D v4);
+    double angleBetweenVectors(Vector3D v1, Vector3D v2);
 
-    double distanceBetweenVectors(point3D v1, point3D v2,point3D v3 , point3D v4);
+    double distanceBetweenVectors(Vector3D v1, Vector3D v2);
 
-    point3D subtractScalar(point3D v1 , point3D v2 , double scalar);
+    Vector3D subtractScalar(Vector3D v1  , double scalar);
 
-    point3D vectorScalarDivision(point3D v1, point3D v2,point3D v3 , point3D v4 , double scalar);
+    Vector3D vectorScalarDivision(Vector3D v1, double scalar);
 
-    double angleBetweenPlaneandVector(plane normal , point3D v1 , point3D v2 );
+    double angleBetweenPlaneandVector(Plane normal ,Vector3D v1 );
 
-    void directionCosines(point3D v1, point3D v2,point3D v3 , point3D v4);
+    void directionCosines(Vector3D v1);
 
-    double setLength(point3D v1 , point3D v2 , double lenght);
+    double setLength(Vector3D v1 , double lenght);
+
+    Vector3D multiplyMatrix(Matrix matrix , Vector3D v1);
+
+    Vector3D projectiononVector(Vector3D v1 , Vector3D v2);
+
+    Vector3D projectionPlane(Vector3D v1 , Vector3D Normal);
+
+    Vector3D vectorSubtraction(Vector3D v1, Vector3D v2);
+
+    
  
-   
-
-
-    
-
-
-
-
-
-
-
 
 
 private:
-    point3D mV1;
-    point3D mV2;
-    point3D mV3;
-    point3D mV4;
+    Vector3D mV1;
+   
 };

@@ -1,25 +1,32 @@
-#include "point3D.h"
-class plane 
+#pragma once
+#include "Vector3D.h"
+class Plane 
 {
     public:
-    plane();
-    ~plane();
+    Plane();
+    ~Plane();
 
-    plane(point3D point , point3D v1 ,point3D v2);
+    Plane(Vector3D inNormal , double inX ,double inY ,double inZ);
 
-    void sPoint(point3D mPoint);
-    void sVector1(point3D v1);
-    void sVectoV2(point3D v2);
 
-    point3D gPoint();
-    point3D gVector1();
-    point3D gVector2();
+    void sNormal(Vector3D normal);
+    void sX(double x);
+    void sY(double y);
+    void sZ(double Z);
+
+
+    Vector3D getNormal();
+    double getX()const;
+    double getY()const;
+    double getZ()const;
+
+    
 
     private:
-    point3D mPoint;
-    point3D mV1;
-    point3D mV2;
-
+    Vector3D mNormal;
+    double mX;
+    double mY;
+    double mZ;
 
 
     

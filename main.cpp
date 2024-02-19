@@ -1,10 +1,12 @@
 #include <iostream>
 #include <fstream>
-#include "headers/point3D.h"
-#include "headers/geomVector.h"
+#include "headers/Vector3D.h"
+#include "headers/GeomVector.h"
+#include "headers/Writer.h"
+#include "headers/UserInput.h"
 using namespace std;
 
-point3D inputPoint(const string &prompt)
+ Vector3D  inputPoint(const std::string &prompt)
 {
     double x, y, z;
     cout << prompt << endl;
@@ -14,12 +16,13 @@ point3D inputPoint(const string &prompt)
     cin >> y;
     cout << "Enter z coordinate: ";
     cin >> z;
-    return point3D(x, y, z);
+    return Vector3D(x, y, z);
 }
 
 int main()
 {
-    geomVector vector3d; // Create an instance of geomVector
+    Input fromUser;
+    GeomVector vector3d; // Create an instance of geomVector
 
     int choice;
     cout << "Enter your choice:" << endl;
@@ -36,16 +39,19 @@ int main()
     cout << "11. Vector Scalar Division" << endl;
     cout << "12. Angle Between Plane and Vector" << endl;
     cout << "13. Direction Cosines" << endl;
+    cout << "14. Vector Addition " << endl;
+    cout << "15 . multiply matrix" << endl;
+    cout << "16. projection on vector" << endl;
+    cout << "17. vector subtraction  " << endl;
+    cout << "18.projection  on plane" << endl;
+    cout << "19.set Length " << endl;
+    cout << "20.exit" << endl;
+    
 
     cin >> choice;
 
-    point3D v1, v2, v3, v4;
-
-    ofstream input1("input1.txt");
-
-    ofstream input2("input2.txt");
-
-    ofstream out("path.txt");
+    Vector3D v1, v2;
+    Plane normal;
 
     // Take input for the vector points
     cout << "Enter coordinates for vector 1:" << endl;
@@ -54,165 +60,227 @@ int main()
     {
     case 1:
     {
-        v1 = inputPoint("Vector 1");
-
+        v1 = fromUser.inputPoint("Vector 1");
         cout << "Enter coordinates for vector 2:" << endl;
-        v2 = inputPoint("Vector 2");
-        cout << "Enter coordinates for vector 3:" << endl;
-        v3 = inputPoint("Vector 3");
-        cout << "Enter coordinates for vector 4:" << endl;
-        v4 = inputPoint("Vector 4");
+        v2 = fromUser.inputPoint("Vector 2");
 
-        cout << "Dot Product: " << vector3d.dotProduct(v1, v2, v3, v4) << endl;
+        cout << "Dot Product: " << vector3d.dotProduct(v1, v2) << endl;
         break;
     }
 
     case 2:
     {
-        v1 = inputPoint("Vector 1");
-
+        v1 = fromUser.inputPoint("Vector 1");
         cout << "Enter coordinates for vector 2:" << endl;
-        v2 = inputPoint("Vector 2");
-        input1 << v1.x() << " " << v1.y() << " " << v1.z() << " " << v2.x() << " " << v2.y() << " " << v2.z() << " " << endl;
-        cout << "Enter coordinates for vector 3:" << endl;
-        v3 = inputPoint("Vector 3");
+        v2 = fromUser.inputPoint("Vector 2");
 
-        cout << "Enter coordinates for vector 4:" << endl;
-        v4 = inputPoint("Vector 4");
-        input2 << v3.x() << " " << v3.y() << " " << v3.z() << " " << v4.x() << " " << v4.y() << " " << v4.z() << " " << endl;
-        point3D ans = vector3d.crossProduct(v1, v2, v3, v4);
-        out << ans.x() << " " << ans.y() << " " << ans.z() << " " << 0 << " " << 0 << " " << 0 << " " << endl;
+        Vector3D ans = vector3d.crossProduct(v1, v2);
+        Writer write(v1, v2, ans);
+
         break;
     }
 
     case 3:
     {
-        v1 = inputPoint("Vector 1");
+        v1 = fromUser.inputPoint("Vector 1");
 
         cout << "Enter coordinates for vector 2:" << endl;
-        v2 = inputPoint("Vector 2");
+        v2 = fromUser.inputPoint("Vector 2");
 
-        cout << "Vector Magnitude: " << vector3d.vectorMagnitude(v1, v2) << endl;
+        cout << "Vector Magnitude: " << vector3d.vectorMagnitude(v1) << endl;
         break;
     }
 
     case 4:
     {
-        v1 = inputPoint("Vector 1");
-
+        v1 = fromUser.inputPoint("Vector 1");
         cout << "Enter coordinates for vector 2:" << endl;
-        v2 = inputPoint("Vector 2");
-        input1 << v1.x() << " " << v1.y() << " " << v1.z() << " " << v2.x() << " " << v2.y() << " " << v2.z() << " " << endl;
-        point3D ans = vector3d.vectorNormalized(v1, v2);
-        out << ans.x() << " " << ans.y() << " " << ans.z() << " " << 0 << " " << 0 << " " << 0 << " " << endl;
+        v2 = fromUser.inputPoint("Vector 2");
+
+        Vector3D ans = vector3d.vectorNormalized(v1);
+        Writer write(v1, v2, ans);
+
         break;
     }
 
     case 5:
     {
-        v1 = inputPoint("Vector 1");
+        v1 = fromUser.inputPoint("Vector 1");
 
         cout << "Enter coordinates for vector 2:" << endl;
-        v2 = inputPoint("Vector 2");
-        cout << "Is Equal: " << (vector3d.isEqual(v1, v2, v3, v4) ? "true" : "false") << endl;
+        v2 = fromUser.inputPoint("Vector 2");
+        cout << "Is Equal: " << (vector3d.isEqual(v1, v2) ? "true" : "false") << endl;
         break;
     }
 
     case 6:
     {
-        v1 = inputPoint("Vector 1");
-
+        v1 = fromUser.inputPoint("Vector 1");
         cout << "Enter coordinates for vector 2:" << endl;
-        v2 = inputPoint("Vector 2");
-        input1 << v1.x() << " " << v1.y() << " " << v1.z() << " " << v2.x() << " " << v2.y() << " " << v2.z() << " " << endl;
-        point3D ans = vector3d.addScalar(v1, v2, 5);
-        out << ans.x() << " " << ans.y() << " " << ans.z() << " " << 0 << " " << 0 << " " << 0 << " " << endl; // Change 5 to the desired scalar value
+        double scalar;
+        cin >> scalar;
+
+        Vector3D ans = vector3d.addScalar(v1, scalar);
+        Writer write(ans);
+
         break;
     }
 
     case 7:
     {
-        v1 = inputPoint("Vector 1");
-
+        v1 = fromUser.inputPoint("Vector 1");
         cout << "Enter coordinates for vector 2:" << endl;
-        v2 = inputPoint("Vector 2");
-        input1 << v1.x() << " " << v1.y() << " " << v1.z() << " " << v2.x() << " " << v2.y() << " " << v2.z() << " " << endl;
-        point3D ans = vector3d.vectorScalarMultiplication(v1, v2, 5);
-        out << ans.x() << " " << ans.y() << " " << ans.z() << " " << 0 << " " << 0 << " " << 0 << " " << endl; // Change 5 to the desired scalar value
+        double scalar;
+        cin >> scalar;
+
+        Vector3D ans = vector3d.vectorScalarMultiplication(v1, scalar);
+        Writer write(ans);
         break;
     }
     case 8:
     {
-        v1 = inputPoint("Vector 1");
+        v1 = fromUser.inputPoint("Vector 1");
 
         cout << "Enter coordinates for vector 2:" << endl;
-        v2 = inputPoint("Vector 2");
-        cout << "Angle Between Vectors: " << vector3d.angleBetweenVectors(v1, v2, v3, v4) << endl;
+        v2 = fromUser.inputPoint("Vector 2");
+        cout << "Angle Between Vectors: " << vector3d.angleBetweenVectors(v1, v2) << endl;
         break;
     }
 
     case 9:
     {
-        v1 = inputPoint("Vector 1");
+        v1 = fromUser.inputPoint("Vector 1");
 
         cout << "Enter coordinates for vector 2:" << endl;
-        v2 = inputPoint("Vector 2");
-        cout << "Distance Between Vectors: " << vector3d.distanceBetweenVectors(v1, v2, v3, v4) << endl;
+        v2 = fromUser.inputPoint("Vector 2");
+        cout << "Distance Between Vectors: " << vector3d.distanceBetweenVectors(v1, v2) << endl;
         break;
     }
 
     case 10:
     {
-        v1 = inputPoint("Vector 1");
-
+        v1 = fromUser.inputPoint("Vector 1");
         cout << "Enter coordinates for vector 2:" << endl;
-        v2 = inputPoint("Vector 2");
-        input1 << v1.x() << " " << v1.y() << " " << v1.z() << " " << v2.x() << " " << v2.y() << " " << v2.z() << " " << endl;
-        point3D ans = vector3d.subtractScalar(v1, v2, 5);
-        out << ans.x() << " " << ans.y() << " " << ans.z() << " " << 0 << " " << 0 << " " << 0 << " " << endl; // Change 5 to the desired scalar value
+        double scalar;
+        cin >> scalar;
+
+        Vector3D ans = vector3d.subtractScalar(v1, scalar);
+        Writer write(ans);
         break;
     }
 
     case 11:
     {
-        v1 = inputPoint("Vector 1");
 
-        cout << "Enter coordinates for vector 2:" << endl;
-        v2 = inputPoint("Vector 2");
-        input1 << v1.x() << " " << v1.y() << " " << v1.z() << " " << v2.x() << " " << v2.y() << " " << v2.z() << " " << endl;
-        cout << "Enter coordinates for vector 3:" << endl;
-        v3 = inputPoint("Vector 3");
+        v1 = fromUser.inputPoint("Vector 1");
+        cout << "Enter coordinates for scalar :" << endl;
 
-        cout << "Enter coordinates for vector 4:" << endl;
-        v4 = inputPoint("Vector 4");
-        input2 << v3.x() << " " << v3.y() << " " << v3.z() << " " << v4.x() << " " << v4.y() << " " << v4.z() << " " << endl;
-        point3D ans = vector3d.vectorScalarDivision(v1, v2, v3, v4, 5);
-        out << ans.x() << " " << ans.y() << " " << ans.z() << " " << 0 << " " << 0 << " " << 0 << " " << endl; // Change 5 to the desired scalar value
+        double scalar;
+        cin >> scalar;
+
+        Vector3D ans = vector3d.vectorScalarDivision(v1, scalar);
+        Writer write(ans);
         break;
     }
 
     case 12:
     {
-        v1 = inputPoint("Vector 1");
+        v1 = fromUser.inputPoint("Vector 1");
+        v2 = fromUser.inputPoint("Vector 2");
+        cout << "Enter coordinates for equation of plane:" << endl;
 
-        cout << "Enter coordinates for vector 2:" << endl;
-        v2 = inputPoint("Vector 2");
-        cout << "Angle Between Plane and Vector: " << vector3d.angleBetweenPlaneandVector(plane(), v1, v2) << endl;
+        double x, y, z;
+        cin >> x >> y >> z;
+
+        Plane newnormal(v2, x, y, z);
+        //.= inputPoint("Vector 2");
+
+        cout << "Angle Between Plane and Vector: " << vector3d.angleBetweenPlaneandVector(newnormal, v1) << endl;
         break;
     }
 
     case 13:
     {
-        v1 = inputPoint("Vector 1");
-        cout << "Enter coordinates for vector 2:" << endl;
-        v2 = inputPoint("Vector 2");
+        v1 = fromUser.inputPoint("Vector 1");
 
-        cout << "Enter coordinates for vector 3:" << endl;
-        v3 = inputPoint("Vector 3");
+        vector3d.directionCosines(v1);
 
-        cout << "Enter coordinates for vector 4:" << endl;
-        v4 = inputPoint("Vector 4");
-        vector3d.directionCosines(v1, v2, v3, v4);
+        break;
+    }
+    case 14:
+    {
+        v1=fromUser.inputPoint("vector 1");
+        v2=fromUser.inputPoint("vector 2");
+        Vector3D ans = vector3d.vectorAddition(v1, v2);
+        Writer write(ans);
+        break;
+
+    }
+    case 15:
+    {
+        v1 = fromUser.inputPoint("vector 1");
+        double a, b, c, d, e, f, g, h, i;
+        cin >> a >> b >> c >> d >> e >> f >> g >> h >> i;
+
+        Matrix matrix(a, b, c, d, e, f, g, h, i);
+
+        Vector3D ans = vector3d.multiplyMatrix(matrix, v1);
+        Writer write(ans);
+
+        break;
+    }
+    case 16:
+    {
+        v1 = fromUser.inputPoint("vector 1");
+        v2 = fromUser.inputPoint("vector 2");
+
+        Vector3D ans = vector3d.projectiononVector(v1, v2);
+
+        Writer write(ans);
+
+        break;
+    }
+    case 17:
+    {
+         v1=fromUser.inputPoint("vector 1");
+        v2=fromUser.inputPoint("vector 2");
+        Vector3D ans = vector3d.vectorSubtraction(v1, v2);
+        Writer write(ans);
+        break;
+
+        
+    }
+    case 18:
+    {
+         v1 = fromUser.inputPoint("vector 1");
+        v2 = fromUser.inputPoint("vector 2");
+
+        Vector3D ans = vector3d.projectionPlane(v1, v2);
+
+        Writer write(ans);
+
+        break;
+
+        
+    }
+    case 19:
+    {
+         v1 = fromUser.inputPoint("Vector 1");
+        cout << "Enter coordinates for scalar :" << endl;
+
+        double scalar;
+        cin >> scalar;
+
+         double ans=vector3d.setLength(v1, scalar);
+       return ans;
+        break;
+
+        break;
+    }
+    
+    case 20:
+    {
+        cout << "exit" << endl;
         break;
     }
 

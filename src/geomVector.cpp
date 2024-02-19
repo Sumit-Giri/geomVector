@@ -1,156 +1,100 @@
 #include "../headers/geomVector.h"
-#include "../headers/point3D.h"
+#include "../headers/Vector3D.h"
 #include <cmath>
 #include <iostream>
 
-geomVector::geomVector(point3D v1, point3D v2, point3D v3, point3D v4)
+GeomVector::GeomVector(Vector3D v1, Vector3D v2)
 {
-    mV1 = v1;
-    mV2 = v2;
-    mV3 = v3;
-    mV4 = v4;
+    this->mV1 = v1;
+    
 }
 
-geomVector ::~geomVector()
+GeomVector ::~GeomVector()
 {
 }
 
-void geomVector::sVectoV1(point3D v1)
+void GeomVector::sVectoV1(Vector3D v1)
 {
     mV1 = v1;
 }
 
-void geomVector ::sVectoV2(point3D v2)
-{
-    mV2 = v2;
-}
-void geomVector ::sVectoV3(point3D v3)
-{
-    mV2 = v3;
-}
-void geomVector ::sVectoV4(point3D v4)
-{
-    mV2 = v4;
-}
 
-point3D geomVector::vector1()
+
+
+Vector3D GeomVector::vector1() const
 {
     return mV1;
 }
-point3D geomVector ::vector2()
-{
-    return mV2;
-}
-point3D geomVector ::vector3()
-{
-    return mV2;
-}
-point3D geomVector ::vector4()
-{
-    return mV2;
-}
-void geomVector ::print(point3D a)
+
+
+void GeomVector ::print(Vector3D a)
 {
     std::cout << a.x() << " " << a.y() << " " << a.z();
 }
 
-geomVector :: geomVector ()
+GeomVector ::GeomVector()
 {
-
 }
-//taking coordinates of A and B and then making Vector AB
+// taking coordinates of A and B and then making Vector AB
 
-//Dot product of Two vectors
-double geomVector ::dotProduct(point3D v1, point3D v2, point3D v3, point3D v4)
+// Dot product of Two vectors
+double GeomVector ::dotProduct(Vector3D v1, Vector3D v2)
 {
-    int result = 0;
-    double vec1X = v2.x() - v1.x();
-    double vec1Y = v2.y() - v1.y();
-    double vec1Z = v2.z() - v1.z();
-
-    double vec2X = v4.x() - v3.x();
-    double vec2Y = v4.y() - v3.y();
-    double vec2Z = v4.z() - v3.z();
-
-    result = vec1X * vec2X + vec1Y * vec2Y + vec1Z * vec2Z;
+    double result = v1.x() * v2.x() + v1.y() * v2.y() + v1.z() * v1.z();
     return result;
 }
 
-
-//cross product of Two vectors
-point3D geomVector::crossProduct(point3D v1, point3D v2, point3D v3, point3D v4)
+// cross product of Two vectors
+Vector3D GeomVector::crossProduct(Vector3D v1, Vector3D v2)
 {
-    double vec1X = v2.x() - v1.x();
-    double vec1Y = v2.y() - v1.y();
-    double vec1Z = v2.z() - v1.z();
-
-    double vec2X = v4.x() - v3.x();
-    double vec2Y = v4.y() - v3.y();
-    double vec2Z = v4.z() - v3.z();
-
-    double result_x = vec1Y * vec2Z - vec1Z * vec2Y;
-    double result_y = vec1Z * vec2X - vec1X * vec2Z;
-    double result_z = vec1X * vec2Y - vec1Y * vec2X;
-    return point3D(result_x, result_y, result_z);
+    double result_x = v1.y() * v2.z() - v1.z() * v2.y();
+    double result_y = v1.z() * v2.x() - v1.x() * v2.z();
+    double result_z = v1.x() * v2.y() - v1.y() * v2.x();
+    return Vector3D(result_x, result_y, result_z);
 }
 
-
-//Addtion of Two vectors
-point3D geomVector::vectorAddition(point3D v1, point3D v2, point3D v3, point3D v4)
+// Addtion of Two vectors
+Vector3D GeomVector::vectorAddition(Vector3D v1, Vector3D v2)
 {
-    double vec1X = v2.x() - v1.x();
-    double vec1Y = v2.y() - v1.y();
-    double vec1Z = v2.z() - v1.z();
 
-    double vec2X = v4.x() - v3.x();
-    double vec2Y = v4.y() - v3.y();
-    double vec2Z = v4.z() - v3.z();
-
-    double x = vec1X + vec2X;
-    double y = vec1Y + vec2Y;
-    double z = vec1Z + vec2Z;
-    return point3D(x, y, z);
+    double x = v1.x() + v2.x();
+    double y = v1.y() + v2.y();
+    double z = v1.z() + v2.z();
+    return Vector3D(x, y, z);
 }
-
-//magnitude of Vector
-double geomVector::vectorMagnitude(point3D v1, point3D v2)
+Vector3D GeomVector::vectorSubtraction(Vector3D v1, Vector3D v2)
 {
-    double magnitude = sqrt(pow(v2.x() - v1.x(), 2) + pow(v2.y() - v1.y(), 2) + pow(v2.z() - v1.z(), 2));
+
+    double x = v1.x() - v2.x();
+    double y = v1.y() - v2.y();
+    double z = v1.z() - v2.z();
+    return Vector3D(x, y, z);
+}
+// magnitude of Vector
+double GeomVector::vectorMagnitude(Vector3D v1)
+{
+    double magnitude = sqrt(pow(v1.x(), 2) + pow(v1.y(), 2) + pow(v1.z(), 2));
     return magnitude;
 }
 
-
-//normalized of vector
-point3D geomVector::vectorNormalized(point3D v1, point3D v2)
+// normalized of vector
+Vector3D GeomVector::vectorNormalized(Vector3D v1)
 {
-    double x = v2.x() - v1.x();
 
-    double y = v2.y() - v1.x();
+    double magnitude = vectorMagnitude(v1);
 
-    double z = v2.z() - v1.x();
+    double nX = v1.x() / magnitude;
+    double nY = v1.y() / magnitude;
+    double nZ = v1.z() / magnitude;
 
-    double magnitude = sqrt(x * x + y * y + z * z);
-
-    double nX = x / magnitude;
-    double nY = y / magnitude;
-    double nZ = z / magnitude;
-
-    return point3D(nX, nY, nZ);
+    return Vector3D(nX, nY, nZ);
 }
 
-
-//check if two vectors are equal or Not
-bool geomVector::isEqual(point3D v1, point3D v2, point3D v3, point3D v4)
+// check if two vectors are equal or Not
+bool GeomVector::isEqual(Vector3D v1, Vector3D v2)
 {
-    double x1 = v2.x() - v1.x();
-    double y1 = v2.y() - v1.y();
-    double z1 = v2.z() - v1.z();
 
-    double x2 = v4.x() - v3.x();
-    double y2 = v4.y() - v3.y();
-    double z2 = v4.z() - v3.z();
-
-    if (x1 == x2 && y1 == y2 && z1 == z2)
+    if (v1.x() == v2.x() && v1.y() == v2.y() && v1.z() == v2.z())
     {
         return true;
     }
@@ -160,65 +104,48 @@ bool geomVector::isEqual(point3D v1, point3D v2, point3D v3, point3D v4)
     }
 }
 
-//add scalar to vector
-point3D geomVector::addScalar(point3D v1, point3D v2, double scalar)
+// add scalar to vector
+Vector3D GeomVector::addScalar(Vector3D v1, double scalar)
 {
-    double X = v2.x() - v1.x() + scalar;
-    double Y = v2.y() - v1.y() + scalar;
-    double Z = v2.z() - v1.z() + scalar;
+    double X = v1.x() + scalar;
+    double Y = v1.y() + scalar;
+    double Z = v1.z() + scalar;
 
-    return point3D(X, Y, Z);
+    return Vector3D(X, Y, Z);
 }
 
-
-//vectorScalarMultiplication
-point3D geomVector::vectorScalarMultiplication(point3D v1, point3D v2, double scalar)
+// vectorScalarMultiplication
+Vector3D GeomVector::vectorScalarMultiplication(Vector3D v1, double scalar)
 {
 
-    double X = v2.x() - v1.x() * scalar;
-    double Y = v2.y() - v1.y() * scalar;
-    double Z = v2.z() - v1.z() * scalar;
+    double X = v1.x() * scalar;
+    double Y = v1.y() * scalar;
+    double Z = v1.z() * scalar;
 
-    return point3D(X, Y, Z);
+    return Vector3D(X, Y, Z);
 }
 
-
-//angle between two vectors
-double geomVector::angleBetweenVectors(point3D v1, point3D v2, point3D v3, point3D v4)
+// angle between two vectors
+double GeomVector::angleBetweenVectors(Vector3D v1, Vector3D v2)
 {
 
-    double dot = dotProduct(v1, v2, v3, v4);
+    double dot = dotProduct(v1, v2);
 
-    double x1 = v2.x() - v1.x();
-    double y1 = v2.y() - v1.y();
-    double z1 = v2.z() - v1.z();
+    double magnitude1 = vectorMagnitude(v1);
 
-    double x2 = v4.x() - v3.x();
-    double y2 = v4.y() - v3.y();
-    double z2 = v4.z() - v3.z();
-
-    point3D nVec1(x1, y1, z1);
-    point3D nVec2(x2, y2, z2);
-
-    double magnitude = vectorMagnitude(nVec1, nVec2);
+    double magnitude2 = vectorMagnitude(v2);
+    double magnitude = magnitude1 * magnitude2;
 
     return acos(dot / magnitude) * 180.0 / M_PI;
 }
 
-//distance between two vectors
-double geomVector::distanceBetweenVectors(point3D v1, point3D v2, point3D v3, point3D v4)
+// distance between two vectors
+double GeomVector::distanceBetweenVectors(Vector3D v1, Vector3D v2)
 {
-    double x1 = v2.x() - v1.x();
-    double y1 = v2.y() - v1.y();
-    double z1 = v2.z() - v1.z();
 
-    double x2 = v4.x() - v3.x();
-    double y2 = v4.y() - v3.y();
-    double z2 = v4.z() - v3.z();
-
-    double d1 = x2 - x1;
-    double d2 = y2 - y1;
-    double d3 = z2 - z1;
+    double d1 = v2.x() - v1.x();
+    double d2 = v2.y() - v1.y();
+    double d3 = v2.z() - v1.z();
 
     double formula = d1 * d1 + d2 * d2 + d3 * d3;
 
@@ -227,71 +154,57 @@ double geomVector::distanceBetweenVectors(point3D v1, point3D v2, point3D v3, po
     return Distance;
 }
 
-//subtract scalar from vector
-point3D geomVector ::subtractScalar(point3D v1, point3D v2, double scalar)
+// subtract scalar from vector
+Vector3D GeomVector ::subtractScalar(Vector3D v1, double scalar)
 {
-    double X = v2.x() - v1.x() - scalar;
-    double Y = v2.y() - v1.y() - scalar;
-    double Z = v2.z() - v1.z() - scalar;
+    double X = v1.x() - scalar;
+    double Y = v1.y() - scalar;
+    double Z = v1.z() - scalar;
 
-    return point3D(X, Y, Z);
+    return Vector3D(X, Y, Z);
 }
 
-//vectorScalarDivision
-point3D geomVector::vectorScalarDivision(point3D v1, point3D v2, point3D v3, point3D v4, double scalar)
+// vectorScalarDivision
+Vector3D GeomVector::vectorScalarDivision(Vector3D v1, double scalar)
 {
-    double X = v2.x() - v1.x() / scalar;
-    double Y = v2.y() - v1.y() / scalar;
-    double Z = v2.z() - v1.z() / scalar;
+    double X = v1.x() / scalar;
+    double Y = v1.y() / scalar;
+    double Z = v1.z() / scalar;
 
-    return point3D(X, Y, Z);
+    return Vector3D(X, Y, Z);
 }
 
-//angle between plane and vector
-double geomVector ::angleBetweenPlaneandVector(plane normal, point3D v1, point3D v2)
+// angle between plane and vector
+double GeomVector ::angleBetweenPlaneandVector(Plane normal, Vector3D v1)
 {
+    double x = normal.getX();
+    double y = normal.getY();
+    double z = normal.getZ();
+    Vector3D newPlane(x, y, z);
 
-    double dot = dotProduct(v1, v2, normal.gVector1(), normal.gVector2());
+    Vector3D NormalofPlane = vectorNormalized(newPlane);
 
-    double x1 = v2.x() - v1.x();
-    double y1 = v2.y() - v1.y();
-    double z1 = v2.z() - v1.z();
-
-    point3D nVec1(x1, y1, z1);
-
-    double x2 = normal.gVector2().x() - normal.gVector1().x();
-    double y2 = normal.gVector2().y() - normal.gVector1().y();
-    double z2 = normal.gVector2().z() - normal.gVector1().z();
-
-    point3D nVec2(x2, y2, z2);
-
-    double magnitude = vectorMagnitude(nVec1, nVec2);
-    double angle = acos(dot / magnitude) * 180 / M_PI;
+    double angle = angleBetweenVectors(NormalofPlane, v1);
+   
     return angle;
 }
 
-//direction cosines of two vector
-void geomVector ::directionCosines(point3D v1, point3D v2, point3D v3, point3D v4)
+// direction cosines of two vector
+void GeomVector ::directionCosines(Vector3D v1)
 {
-    double x1 = v2.x() - v1.x();
-    double y1 = v2.y() - v1.y();
-    double z1 = v2.z() - v1.z();
+    double magnitude1 = vectorMagnitude(v1);
 
-    double magnitude1 = vectorMagnitude(v1, v2);
+    std ::cout << " Direction Cosine of X is " << v1.x() / magnitude1 << std ::endl;
 
-    std ::cout << " Direction Cosine of X is " << x1 / magnitude1 << std ::endl;
+    std ::cout << " Direction Cosine of Y is " <<v1.y() / magnitude1 << std ::endl;
 
-    std ::cout << " Direction Cosine of Y is " << y1 / magnitude1 << std ::endl;
-
-    std ::cout << " Direction Cosine of Z is " << z1 / magnitude1 << std ::endl;
+    std ::cout << " Direction Cosine of Z is " << v1.z() / magnitude1 << std ::endl;
 }
 
-
-//set length of vectors
-double geomVector ::setLength(point3D v1, point3D v2, double length)
+// set length of vectors
+double GeomVector ::setLength(Vector3D v1, double length)
 {
-
-    point3D normal = vectorNormalized(v1, v2);
+    Vector3D normal = vectorNormalized(v1);
 
     double magnitude = sqrt(pow(normal.x(), 2) + pow(normal.y(), 2) + pow(normal.z(), 2));
 
@@ -299,4 +212,57 @@ double geomVector ::setLength(point3D v1, point3D v2, double length)
 
     return newLength;
 }
+
+
+
+Vector3D GeomVector::multiplyMatrix(Matrix matrix,Vector3D v1) 
+{
+    double resultX =v1. x() * matrix.element(0, 0) + v1.y() * matrix.element(1, 0) + v1.z() * matrix.element(2, 0);
+    double resultY = v1.x() * matrix.element(0, 1) + v1.y() * matrix.element(1, 1) + v1.z() * matrix.element(2, 1);
+    double resultZ = v1.x() * matrix.element(0, 2) + v1.y() * matrix.element(1, 2) + v1.z() * matrix.element(2, 2);
+    return Vector3D(resultX, resultY, resultZ);
+}
+Vector3D GeomVector :: projectiononVector(Vector3D v1 , Vector3D v2)
+{
+    double dot =dotProduct(v1,v2);
+    double magnitude =vectorMagnitude(v2);
+    double result=dot/(magnitude*magnitude);
+
+    Vector3D ans= vectorScalarMultiplication(v2,result);
+
+    return ans;
+}
+
+ Vector3D GeomVector :: projectionPlane(Vector3D v1 , Vector3D Normal)
+ {
+    Vector3D ans= projectionPlane(v1,Normal);
+
+    Vector3D result = vectorSubtraction(ans , v1);
+
+    return result;
+
+
+ }
+ 
+// Geometry::GeomVector Geometry::GeomVector::projectionOnVector(const GeomVector &otherVector) const
+// {
+//     double dotProductResult = dotProduct(otherVector);
+//     double denominator = otherVector.dotProduct(otherVector);
+ 
+//     if (std::abs(denominator) == 0)
+//     {
+//         return GeomVector();
+//     }
+ 
+//     double scalarValue = dotProductResult / denominator;
+//     return otherVector.multiplyScalar(scalarValue);
+// }
+ 
+// Geometry::GeomVector Geometry::GeomVector::projectVectorOnPlane(const GeomVector &vector, const GeomVector &planeNormal) const
+// {
+//     GeomVector projection = vector.projectionOnVector(planeNormal);
+//     GeomVector result = vector - projection;
+//     return result;
+// }
+
 
