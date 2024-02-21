@@ -1,23 +1,11 @@
 #include <iostream>
 #include <fstream>
-#include "headers/Vector3D.h"
 #include "headers/GeomVector.h"
-#include "headers/Writer.h"
 #include "headers/UserInput.h"
-using namespace std;
+#include "headers/Vector3D.h"
+#include "headers/Writer.h"
 
- Vector3D  inputPoint(const std::string &prompt)
-{
-    double x, y, z;
-    cout << prompt << endl;
-    cout << "Enter x coordinate: ";
-    cin >> x;
-    cout << "Enter y coordinate: ";
-    cin >> y;
-    cout << "Enter z coordinate: ";
-    cin >> z;
-    return Vector3D(x, y, z);
-}
+using namespace std;
 
 int main()
 {

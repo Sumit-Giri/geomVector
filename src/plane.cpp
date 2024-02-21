@@ -23,36 +23,36 @@ Plane :: Plane()
     {
         mNormal=normal;
     }
-    void  Plane ::sX(double x)
+    void  Plane ::setX(double x)
     {
         mX=x;
     }
-    void  Plane ::sY(double y)
+    void  Plane ::setY(double y)
     {
         mY=y;
 
     }
-    void Plane ::sZ(double z)
+    void Plane ::setZ(double z)
     {
         mZ=z;
 
     }
 
 
-    Vector3D Plane :: getNormal() 
+    Vector3D Plane :: Normal() 
     {
         return mNormal;
     }
-    double Plane :: getX() const
+    double Plane :: X() const
     {
         return mX;
 
     }
-    double Plane :: getY() const
+    double Plane :: Y() const
     {
         return mY;
     }
-    double Plane :: getZ() const
+    double Plane :: Z() const
     {
         return mZ;
     }

@@ -1,12 +1,12 @@
 #pragma once
-#include "Vector3D.h"
-#include "Plane.h"
 #include "Matrix.h"
+#include "Plane.h"
+#include "Vector3D.h"
 
 class GeomVector
 {
 public:
-    GeomVector ();
+    GeomVector();
     GeomVector(Vector3D v1, Vector3D v2);
     ~GeomVector();
 
@@ -21,8 +21,6 @@ public:
     void sVectoV4(Vector3D v4);
 
     Vector3D vector1() const;
-    
-    
 
     double dotProduct(Vector3D v1, Vector3D v2);
 
@@ -36,7 +34,7 @@ public:
 
     bool isEqual(Vector3D v1, Vector3D v2);
 
-    Vector3D addScalar(Vector3D v1 , double scalar);
+    Vector3D addScalar(Vector3D v1, double scalar);
 
     Vector3D vectorScalarMultiplication(Vector3D v1, double scalar);
 
@@ -44,29 +42,24 @@ public:
 
     double distanceBetweenVectors(Vector3D v1, Vector3D v2);
 
-    Vector3D subtractScalar(Vector3D v1  , double scalar);
+    Vector3D subtractScalar(Vector3D v1, double scalar);
 
     Vector3D vectorScalarDivision(Vector3D v1, double scalar);
 
-    double angleBetweenPlaneandVector(Plane normal ,Vector3D v1 );
+    double angleBetweenPlaneandVector(Plane normal, Vector3D v1);
 
     void directionCosines(Vector3D v1);
 
-    double setLength(Vector3D v1 , double lenght);
+    double setLength(Vector3D v1, double lenght);
 
-    Vector3D multiplyMatrix(Matrix matrix , Vector3D v1);
+    Vector3D multiplyMatrix(Matrix matrix, Vector3D v1);
 
-    Vector3D projectiononVector(Vector3D v1 , Vector3D v2);
+    Vector3D projectiononVector(Vector3D v1, Vector3D v2);
 
-    Vector3D projectionPlane(Vector3D v1 , Vector3D Normal);
+    Vector3D projectionPlane(Vector3D v1, Vector3D Normal);
 
     Vector3D vectorSubtraction(Vector3D v1, Vector3D v2);
 
-    
- 
-
-
 private:
     Vector3D mV1;
-   
 };

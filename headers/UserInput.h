@@ -8,6 +8,4 @@ public:
     ~Input() = default;
 
     Vector3D inputPoint(const std::string &prompt);
-
-private:
 };

@@ -1,33 +1,28 @@
 #pragma once
 #include "Vector3D.h"
-class Plane 
+
+class Plane
 {
-    public:
+public:
     Plane();
+    Plane(Vector3D inNormal, double inX, double inY, double inZ);
     ~Plane();
 
-    Plane(Vector3D inNormal , double inX ,double inY ,double inZ);
-
+ 
 
     void sNormal(Vector3D normal);
-    void sX(double x);
-    void sY(double y);
-    void sZ(double Z);
+    void setX(double x);
+    void setY(double y);
+    void setZ(double Z);
 
+    Vector3D Normal();
+    double X() const;
+    double Y() const;
+    double Z() const;
 
-    Vector3D getNormal();
-    double getX()const;
-    double getY()const;
-    double getZ()const;
-
-    
-
-    private:
+private:
     Vector3D mNormal;
     double mX;
     double mY;
     double mZ;
-
-
-    
 };

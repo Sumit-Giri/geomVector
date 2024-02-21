@@ -1,7 +1,9 @@
-#include "../headers/geomVector.h"
-#include "../headers/Vector3D.h"
+
 #include <cmath>
 #include <iostream>
+#include "../headers/GeomVector.h"
+#include "../headers/Vector3D.h"
+
 
 GeomVector::GeomVector(Vector3D v1, Vector3D v2)
 {
@@ -177,9 +179,9 @@ Vector3D GeomVector::vectorScalarDivision(Vector3D v1, double scalar)
 // angle between plane and vector
 double GeomVector ::angleBetweenPlaneandVector(Plane normal, Vector3D v1)
 {
-    double x = normal.getX();
-    double y = normal.getY();
-    double z = normal.getZ();
+    double x = normal.X();
+    double y = normal.Y();
+    double z = normal.Z();
     Vector3D newPlane(x, y, z);
 
     Vector3D NormalofPlane = vectorNormalized(newPlane);
@@ -244,25 +246,5 @@ Vector3D GeomVector :: projectiononVector(Vector3D v1 , Vector3D v2)
 
  }
  
-// Geometry::GeomVector Geometry::GeomVector::projectionOnVector(const GeomVector &otherVector) const
-// {
-//     double dotProductResult = dotProduct(otherVector);
-//     double denominator = otherVector.dotProduct(otherVector);
- 
-//     if (std::abs(denominator) == 0)
-//     {
-//         return GeomVector();
-//     }
- 
-//     double scalarValue = dotProductResult / denominator;
-//     return otherVector.multiplyScalar(scalarValue);
-// }
- 
-// Geometry::GeomVector Geometry::GeomVector::projectVectorOnPlane(const GeomVector &vector, const GeomVector &planeNormal) const
-// {
-//     GeomVector projection = vector.projectionOnVector(planeNormal);
-//     GeomVector result = vector - projection;
-//     return result;
-// }
 
 

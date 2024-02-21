@@ -1,7 +1,5 @@
-
-#include "../headers/Vector3D.h"
 #include <iostream>
-
+#include "../headers/Vector3D.h"
 using namespace std;
 
 Vector3D :: Vector3D ()
@@ -19,28 +17,28 @@ Vector3D ::~Vector3D()
 {
 }
 
-void Vector3D::sX(double x)
+void Vector3D::setX(double x)
 {
     mI = x;
 }
-void Vector3D::sY(double y)
+void Vector3D::setY(double y)
 {
     mJ = y;
 }
-void Vector3D ::sZ(double z)
+void Vector3D ::setZ(double z)
 {
     mK = z;
 }
 
-double Vector3D :: x()
+double Vector3D :: x() const
 {
     return mI;
 }
-double Vector3D :: y()
+double Vector3D :: y() const
 {
     return mJ;
 }
-double Vector3D :: z()
+double Vector3D :: z() const
 {
     return mK;
 }
